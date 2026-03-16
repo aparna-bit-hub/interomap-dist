@@ -140,14 +140,20 @@ task that requests them to color specific regions with specific colors.
 
 :tada: You are done embedding the InteroMap tool in your survey.
 
-Questions?
+**Questions?**
 Please contact olivier.desmedt@uclouvain.be.
 
-How to visualize and analyze data?
+**How to visualize and analyze data?**
 Another webpage exists to visualize individual and aggregated maps:
 https://interomap.github.io/processing-tool/. The instruction page is available 
 here: https://github.com/interomap/processing-tool.
 
-NB: Note that some old versions of some web browsers may be incompatible with the
-tool, although it is rare. If you use such versions, please pretest the tool and
-visualize the data. If you conduct an online study, visualize each individual map.
+**Important notes:**
+NB1: Note that old versions of some web browsers may be incompatible with the
+tool, although it is rare. 
+NB2: Please pretest the tool and visualize the data before launching your experiment.
+NB3: Because of Qualtrics limitations, there is a maximum drawing size. Although this
+limit is difficult to reach and therefore rarely occurs, participants who make many 
+drawings may eventually reach it, particularly if they draw outside the body area 
+(these drawings are not visible but are still stored). If this occurs, ask 
+participants to avoid drawing outside the body.
