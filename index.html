@@ -13,17 +13,25 @@
 </iframe>
 
 <script>
-// ----------- LOAD CORRECT PERSONA -----------
+// -------- GET PERSONA FROM URL --------
 const urlParams = new URLSearchParams(window.location.search);
-const persona = urlParams.get("persona") || "female";
+let persona = urlParams.get("persona");
+
+// fallback
+if (persona !== "male" && persona !== "female") {
+    persona = "female";
+}
+
+// -------- FORCE LOAD MALE/FEMALE VERSION --------
+const baseURL = "https://interomap.github.io/interomap-dist/";
 
 const iframe = document.getElementById("interomap");
 
-// set source dynamically
-iframe.src = "https://interomap.github.io/interomap-dist/?lang=en&persona=" + persona;
+// Force reload with correct parameter
+iframe.src = baseURL + "?lang=en&persona=" + persona + "&t=" + Date.now();
 
 
-// ----------- SEND DATA TO QUALTRICS -----------
+// -------- SEND DATA TO QUALTRICS --------
 window.addEventListener("message", function(event) {
     if (event.data && event.data.event === "interomap_data") {
         window.parent.postMessage({
@@ -34,7 +42,7 @@ window.addEventListener("message", function(event) {
 });
 
 
-// ----------- RECEIVE REQUEST FROM QUALTRICS -----------
+// -------- RECEIVE REQUEST FROM QUALTRICS --------
 window.addEventListener("message", function(event) {
     if (event.data && event.data.type === "REQUEST_DATA") {
         iframe.contentWindow.postMessage({
