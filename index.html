@@ -9,24 +9,22 @@
 
 <iframe 
   id="interomap"
-  <script>
-const urlParams = new URLSearchParams(window.location.search);
-const persona = urlParams.get("persona") || "female";
-
-document.write(`
-<iframe 
-  id="interomap"
-  src="https://interomap.github.io/interomap-dist/?lang=en&persona=${persona}"
-  style="width:100%; height:100vh; border:none;">
-</iframe>
-`);
-</script>
   style="width:100%; height:100vh; border:none;">
 </iframe>
 
 <script>
+// ----------- LOAD CORRECT PERSONA -----------
+const urlParams = new URLSearchParams(window.location.search);
+const persona = urlParams.get("persona") || "female";
+
+const iframe = document.getElementById("interomap");
+
+// set source dynamically
+iframe.src = "https://interomap.github.io/interomap-dist/?lang=en&persona=" + persona;
+
+
+// ----------- SEND DATA TO QUALTRICS -----------
 window.addEventListener("message", function(event) {
-    // forward data to Qualtrics
     if (event.data && event.data.event === "interomap_data") {
         window.parent.postMessage({
             type: "interomap_data",
@@ -35,10 +33,11 @@ window.addEventListener("message", function(event) {
     }
 });
 
-// listen for request from Qualtrics
+
+// ----------- RECEIVE REQUEST FROM QUALTRICS -----------
 window.addEventListener("message", function(event) {
     if (event.data && event.data.type === "REQUEST_DATA") {
-        document.getElementById("interomap").contentWindow.postMessage({
+        iframe.contentWindow.postMessage({
             event: "export_data"
         }, "*");
     }
